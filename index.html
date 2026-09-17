@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Open Interest Hedge History</title>
+<title>Options OI hedge tables</title>
 <style>
   :root {
     --bg:#0b1220; --card:#121a2b; --text:#e8eefc; --muted:#9bb0d0;
@@ -21,210 +21,49 @@
   .meta { color: var(--muted); margin-bottom: 20px; }
   .card {
     background: var(--card); border:1px solid var(--line); border-radius:14px;
-    padding:18px; margin-bottom:22px; overflow-x:auto;
+    padding:18px 18px 8px; margin-bottom:22px; overflow-x:auto;
   }
   .badge {
     display:inline-block; background:#1e3158; color:var(--accent);
     border:1px solid #2c4678; border-radius:999px; padding:3px 10px;
     font-size:0.85rem; margin-right:8px;
   }
-  .row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:12px; }
-  label { color: var(--muted); font-size:0.9rem; }
-  select {
-    background:#0e1626; color:var(--text); border:1px solid var(--line);
-    border-radius:10px; padding:8px 12px; font-size:1rem;
-  }
   table { border-collapse: collapse; width:100%; font-variant-numeric: tabular-nums; }
   th, td { padding: 10px 12px; border-bottom:1px solid var(--line); text-align:right; white-space:nowrap; }
-  th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align:left; }
+  th:first-child, td:first-child { text-align:left; }
   thead th { color: var(--muted); font-weight:600; font-size:0.85rem; }
   tbody tr:hover { background: rgba(110,168,254,0.06); }
   .note { color: var(--muted); font-size: 0.95rem; }
   a { color: var(--accent); }
   code { background:#0e1626; padding:1px 6px; border-radius:6px; }
-  .err { color: var(--neg); }
-  .pos { color: var(--pos); }
-  .neg { color: var(--neg); }
-  ol { color: var(--muted); }
+  .symgrid { display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:12px; margin:12px 0 8px; }
+  .symcard {
+    display:block; padding:14px 16px; border-radius:12px; border:1px solid var(--line);
+    background:#0e1626; text-decoration:none; color:var(--text);
+  }
+  .symcard:hover { border-color: var(--accent); }
+  .symcard .t { font-weight:700; font-size:1.05rem; }
+  .symcard .s { color:var(--muted); font-size:0.85rem; margin-top:4px; }
+  .muted { color: var(--muted); }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Open Interest Hedge History</h1>
+    <h1>Options OI hedge tables</h1>
     <div class="meta">
-      <span class="badge" id="badge">loading…</span>
-      Single-stock OCC OI · method mirrors
-      <a href="https://tsla-oi.s3.amazonaws.com/index.html">TSLA OI</a> /
-      <a href="https://github.com/galigutta/open_interest">galigutta/open_interest</a>
-      · Site: <code>spcx-oi-site</code> (multi-ticker; optional rename to <code>oi-site</code>)
+      <span class="badge">1 / 11 symbols with OCC rows</span>
+      Last updated: 2026-09-17 08:43:48 ET · Single-stock watchlist
+      (NVDA, TSLA, AAPL, MSFT, AMZN, META, AMD, MU, INTC, NFLX, SPCX)
     </div>
-
     <div class="card">
-      <div class="row">
-        <label for="ticker">Ticker</label>
-        <select id="ticker" aria-label="Select ticker"></select>
-        <span class="note" id="updated">—</span>
+      <h2>Symbols</h2>
+      <p class="note">Each page shows the rolling net-hedge summary and latest expiry×shock pivot.
+      Pipeline: OCC open interest → <strong>yfinance spot</strong> → <strong>AlphaQuery 30-day IV mean</strong> (flat ~52% if scrape fails) → BS hedge shocks.
+      Code: <a href="https://github.com/galigutta/open_interest">galigutta/open_interest</a>.</p>
+      <div class="symgrid">
+        <a class="symcard" href="symbols/NVDA/index.html"><div class="t">NVDA</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/TSLA/index.html"><div class="t">TSLA</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/AAPL/index.html"><div class="t">AAPL</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/MSFT/index.html"><div class="t">MSFT</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/AMZN/index.html"><div class="t">AMZN</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/META/index.html"><div class="t">META</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/AMD/index.html"><div class="t">AMD</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/MU/index.html"><div class="t">MU</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/INTC/index.html"><div class="t">INTC</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/NFLX/index.html"><div class="t">NFLX</div><div class="s">no data yet</div></a><a class="symcard" href="symbols/SPCX/index.html"><div class="t">SPCX</div><div class="s">3 day(s) · px 150.88 · IV 51.94</div></a>
       </div>
-      <p class="note">
-        Columns are net dealer-style hedge share changes vs the spot shock ladder.
-        OI from OCC series search; spot from Yahoo Finance; <strong>30-day IV mean from AlphaQuery</strong>
-        (flat per-symbol default if the scrape fails). <em>Daily OCC pulls</em> are required to grow history —
-        the OCC endpoint is point-in-time, not a backfill archive.
-      </p>
-    </div>
-
-    <div class="card">
-      <h2>Historical summary</h2>
-      <div id="hist"><p class="note">Select a ticker…</p></div>
-    </div>
-
-    <div class="card">
-      <h2>How to add a symbol</h2>
-      <ol>
-        <li>Confirm OCC has equity series: <code>series-search?symbolType=U&amp;symbol=TICKER</code>.</li>
-        <li>Add the ticker to <code>watchlist.txt</code> (or <code>config.yaml</code>) in
-          <a href="https://github.com/galigutta/open_interest">open_interest</a>.</li>
-        <li>Run <code>python oi.py TICKER</code> (or <code>python oi.py --watchlist</code>).</li>
-        <li>Copy <code>snapshot/TICKER-*</code> into <code>data/TICKER/</code> on this Pages repo
-          (<code>index.csv</code>, optional <code>latest-summary.csv</code> / <code>latest-oi.csv</code> / <code>meta.json</code>),
-          and add the symbol to <code>tickers.json</code>.</li>
-        <li>IV: AlphaQuery <code>/stock/TICKER/volatility-option-statistics/30-day/iv-mean</code>; if scrape fails, flat fallback in <code>DEFAULT_VOLS</code>.</li>
-      </ol>
-      <p class="note">Default watchlist (no ETFs): TSLA, NVDA, AAPL, AMZN, META, GOOGL, MSFT, AMD, NFLX, SPCX.</p>
     </div>
   </div>
-<script>
-const FALLBACK_TICKERS = [
-  {symbol:"TSLA", name:"Tesla"},
-  {symbol:"NVDA", name:"NVIDIA"},
-  {symbol:"AAPL", name:"Apple"},
-  {symbol:"AMZN", name:"Amazon"},
-  {symbol:"META", name:"Meta"},
-  {symbol:"GOOGL", name:"Alphabet"},
-  {symbol:"MSFT", name:"Microsoft"},
-  {symbol:"AMD", name:"AMD"},
-  {symbol:"NFLX", name:"Netflix"},
-  {symbol:"SPCX", name:"SpaceX"},
-];
-
-function fmt(n) {
-  if (n === null || n === undefined || n === "" || Number.isNaN(+n)) return "—";
-  const x = +n;
-  if (Math.abs(x) >= 1000) return x.toLocaleString(undefined, {maximumFractionDigits: 0});
-  return x.toLocaleString(undefined, {maximumFractionDigits: 2});
-}
-function cls(n) {
-  const x = +n;
-  if (Number.isNaN(x) || x === 0) return "";
-  return x > 0 ? "pos" : "neg";
-}
-function parseCSV(text) {
-  const lines = text.trim().split(/\r?\n/);
-  if (!lines.length) return {headers:[], rows:[]};
-  const headers = lines[0].split(",");
-  const rows = lines.slice(1).filter(Boolean).map(line => {
-    // simple CSV (no quoted commas in our exports)
-    const cols = line.split(",");
-    const o = {};
-    headers.forEach((h,i) => o[h] = cols[i]);
-    return o;
-  });
-  return {headers, rows};
-}
-function renderTable(headers, rows) {
-  const prefer = ["Date","Symbol","Price","Volume","IV","Step"];
-  const shock = headers.filter(h => !prefer.includes(h) && /^-?\d+(\.\d+)?$/.test(h));
-  const cols = [...prefer.filter(h => headers.includes(h)), ...shock,
-                ...headers.filter(h => !prefer.includes(h) && !shock.includes(h))];
-  let html = "<table><thead><tr>" + cols.map(c => `<th>${c}</th>`).join("") + "</tr></thead><tbody>";
-  for (const r of rows) {
-    html += "<tr>" + cols.map(c => {
-      const v = r[c];
-      const isNum = c !== "Date" && c !== "Symbol" && v !== undefined && v !== "" && !Number.isNaN(+v);
-      return `<td class="${isNum ? cls(v) : ""}">${isNum ? fmt(v) : (v ?? "—")}</td>`;
-    }).join("") + "</tr>";
-  }
-  html += "</tbody></table>";
-  return html;
-}
-async function loadTickers() {
-  try {
-    const r = await fetch("tickers.json", {cache:"no-store"});
-    if (!r.ok) throw new Error(r.status);
-    const j = await r.json();
-    return j.tickers || FALLBACK_TICKERS;
-  } catch {
-    return FALLBACK_TICKERS;
-  }
-}
-async function loadSymbol(sym) {
-  const hist = document.getElementById("hist");
-  const updated = document.getElementById("updated");
-  const badge = document.getElementById("badge");
-  hist.innerHTML = `<p class="note">Loading <code>${sym}</code>…</p>`;
-  updated.textContent = "—";
-  try {
-    const url = `data/${sym}/index.csv`;
-    const r = await fetch(url, {cache:"no-store"});
-    if (!r.ok) throw new Error(`No data yet for ${sym} (${r.status}). Run oi.py and publish data/${sym}/index.csv`);
-    const text = await r.text();
-    const {headers, rows} = parseCSV(text);
-    // Prefer this symbol's rows if a combined file was published
-    const filtered = rows.filter(r => !r.Symbol || r.Symbol === sym);
-    const use = filtered.length ? filtered : rows;
-    hist.innerHTML = renderTable(headers, use);
-    badge.textContent = `${use.length} day(s) with OCC OI for ${sym}`;
-    try {
-      const m = await fetch(`data/${sym}/meta.json`, {cache:"no-store"});
-      if (m.ok) {
-        const meta = await m.json();
-        updated.textContent = `Updated: ${meta.updated_at || meta.date || "—"} · IV: AlphaQuery 30-day mean (flat fallback)`;
-      } else {
-        updated.textContent = use[0] ? `Latest row: ${use[0].Date}` : "—";
-      }
-    } catch {
-      updated.textContent = use[0] ? `Latest row: ${use[0].Date}` : "—";
-    }
-  } catch (e) {
-    hist.innerHTML = `<p class="err">${e.message}</p>
-      <p class="note">Legacy SPCX root <a href="index.csv">index.csv</a> may still work for SPCX until multi-ticker data is published.</p>`;
-    badge.textContent = `${sym}: no data`;
-    // Fallback: root index.csv for SPCX
-    if (sym === "SPCX") {
-      try {
-        const r = await fetch("index.csv", {cache:"no-store"});
-        if (r.ok) {
-          const {headers, rows} = parseCSV(await r.text());
-          hist.innerHTML = renderTable(headers, rows);
-          badge.textContent = `${rows.length} day(s) with OCC OI for SPCX (legacy path)`;
-        }
-      } catch {}
-    }
-  }
-}
-(async () => {
-  const tickers = await loadTickers();
-  const sel = document.getElementById("ticker");
-  const params = new URLSearchParams(location.search);
-  const want = (params.get("t") || params.get("symbol") || "SPCX").toUpperCase();
-  for (const t of tickers) {
-    const opt = document.createElement("option");
-    opt.value = t.symbol;
-    opt.textContent = `${t.symbol} — ${t.name || t.symbol}`;
-    if (t.symbol === want) opt.selected = true;
-    sel.appendChild(opt);
-  }
-  if (![...sel.options].some(o => o.value === want) && tickers.length) {
-    sel.value = tickers[0].symbol;
-  }
-  sel.addEventListener("change", () => {
-    const u = new URL(location.href);
-    u.searchParams.set("t", sel.value);
-    history.replaceState(null, "", u);
-    loadSymbol(sel.value);
-  });
-  loadSymbol(sel.value);
-})();
-</script>
 </body>
 </html>

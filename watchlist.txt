@@ -1,0 +1,12 @@
+# Single-stock options-heavy watchlist (no ETFs; no GOOGL).
+NVDA
+TSLA
+AAPL
+MSFT
+AMZN
+META
+AMD
+MU
+INTC
+NFLX
+SPCX
