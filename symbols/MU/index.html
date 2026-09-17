@@ -30,6 +30,13 @@
   th, td { padding: 10px 12px; border-bottom:1px solid var(--line); text-align:right; white-space:nowrap; }
   th:first-child, td:first-child { text-align:left; }
   thead th { color: var(--muted); font-weight:600; font-size:0.85rem; }
+  /* Keep labels visible while scrolling wide tables on phones */
+  .card table { border-collapse: separate; border-spacing: 0; }
+  thead th { position: sticky; top: 0; background: var(--card); z-index: 2; }
+  th:first-child, td:first-child {
+    position: sticky; left: 0; background: var(--card); z-index: 1;
+  }
+  thead th:first-child { z-index: 3; }
   tbody tr:hover { background: rgba(110,168,254,0.06); }
   .note { color: var(--muted); font-size: 0.95rem; }
   a { color: var(--accent); }
@@ -45,6 +52,8 @@
   .symcard .s { color:var(--muted); font-size:0.85rem; margin-top:4px; }
   .muted { color: var(--muted); }
   .back { display:inline-flex; align-items:center; min-height:44px; padding:6px 0; text-decoration:none; }
+  .num-pos { color: var(--pos); }
+  .num-neg { color: var(--neg); }
   .scroll-hint { display:none; color:var(--muted); font-size:0.85rem; margin:0 0 8px; }
   @media (max-width: 720px) {
     .wrap { padding: 16px 12px calc(40px + env(safe-area-inset-bottom, 0px)); }
@@ -68,7 +77,7 @@
   }
 </style></head>
 <body><div class="wrap">
-<p class="meta"><a href="../../index.html">← All symbols</a></p>
+<p class="meta"><a class="back" href="../../index.html">← All symbols</a></p>
 <h1>MU</h1>
 <p class="note">No OCC snapshot yet. Run <code>python oi.py MU</code> then rebuild the site.</p>
 </div></body></html>
