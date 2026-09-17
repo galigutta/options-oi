@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>AMD — pending</title>
+<title>AMD — Options OI hedge table</title>
 <style>
   :root {
     --bg:#0b1220; --card:#121a2b; --text:#e8eefc; --muted:#9bb0d0;
@@ -120,9 +122,474 @@
     .symcard:active { border-color: var(--accent); background:#152038; }
     tbody tr:hover { background: transparent; }
   }
-</style></head>
-<body><div class="wrap">
-<p class="meta"><a class="back" href="../../index.html">← All symbols</a></p>
-<h1>AMD</h1>
-<p class="note">No OCC snapshot yet. Run <code>python oi.py AMD</code> then rebuild the site.</p>
-</div></body></html>
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="meta"><a class="back" href="../../index.html">← All symbols</a></p>
+    <h1>AMD open interest hedge table</h1>
+    <div class="meta">
+      <span class="badge">1 trading day(s) with OCC OI</span>
+      Last updated: 2026-09-17 22:42:13 ET · Spot 545.09 · IV 50.84%
+    </div>
+    <div class="card">
+      <div class="spot-head"><h2>Latest day</h2><span class="spot-date">2026-09-17</span></div>
+      <div class="tiles"><div class='tile'><div class='k'>Spot</div><div class='v'>545.09</div></div><div class='tile'><div class='k'>IV (30d)</div><div class='v'>50.84%</div></div><div class='tile neg'><div class='k'>Shock -50</div><div class='v'>−28.4M</div><div class='sub'>@ 495.09</div></div><div class='tile neg'><div class='k'>Shock -20</div><div class='v'>−10.0M</div><div class='sub'>@ 525.09</div></div><div class='tile pos wide'><div class='k'>At spot (0)</div><div class='v'>+108.3M</div><div class='sub'>@ 545.09</div></div><div class='tile pos'><div class='k'>Shock +20</div><div class='v'>+8.3M</div><div class='sub'>@ 565.09</div></div><div class='tile pos'><div class='k'>Shock +50</div><div class='v'>+18.1M</div><div class='sub'>@ 595.09</div></div></div>
+      <p class="note">Net hedge shares if spot moves by the shown points. Green = positive, red = negative.</p>
+    </div>
+    <div class="card">
+      <h2>Historical summary (net hedge shares by price shock)</h2>
+      <p class="note">Columns like <code>-100 … +100</code> are net dealer-style hedge share changes vs the spot shock ladder.
+      OI from OCC; <strong>spot from yfinance</strong>; <strong>IV from AlphaQuery 30-day IV mean</strong> (flat ~52% fallback if scrape fails).</p>
+      <p class="scroll-hint">Swipe sideways to see all shock columns →</p>
+      <div class='tbox'><div class='tscroll'><table class='dataframe hist'><thead><tr><th>Date</th><th class='col-sym'>Symbol</th><th>Price</th><th>Volume</th><th>IV</th><th>-100</th><th>-50</th><th>-20</th><th>0</th><th>+20</th><th>+50</th><th>+100</th></tr></thead><tbody><tr><td>2026-09-17</td><td class='col-sym'>AMD</td><td>545.09</td><td>28,330,537</td><td>50.84</td><td class='num-neg'>-64,464,968</td><td class='num-neg'>-28,350,367</td><td class='num-neg'>-10,010,458</td><td class='num-pos'>108,297,375</td><td class='num-pos'>8,259,062</td><td class='num-pos'>18,143,616</td><td class='num-pos'>30,315,163</td></tr></tbody></table></div></div>
+    </div>
+    <div class="card">
+      <h2>Latest expiry × price netHedge pivot</h2>
+      <p class="note">From the most recent OCC snapshot run for AMD.</p>
+      <p class='scroll-hint'>Swipe sideways to see all price columns →</p>
+      <div class='tbox'><div class='tscroll'><table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="7" halign="left">netHedge</th>
+    </tr>
+    <tr>
+      <th>Price</th>
+      <th>445.1</th>
+      <th>495.1</th>
+      <th>525.1</th>
+      <th>545.1</th>
+      <th>565.1</th>
+      <th>595.1</th>
+      <th>645.1</th>
+    </tr>
+    <tr>
+      <th>Expiry</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2026-09-19</th>
+      <td class='num-neg'>-1,987,457</td>
+      <td class='num-pos'>10,445,930</td>
+      <td class='num-pos'>16,313,235</td>
+      <td class='num-pos'>19,011,024</td>
+      <td class='num-pos'>20,800,938</td>
+      <td class='num-pos'>22,485,007</td>
+      <td class='num-pos'>24,335,627</td>
+    </tr>
+    <tr>
+      <th>2026-09-22</th>
+      <td class='num-neg'>-586,925</td>
+      <td class='num-neg'>-183,748</td>
+      <td class='num-pos'>127,731</td>
+      <td class='num-pos'>290,952</td>
+      <td class='num-pos'>406,340</td>
+      <td class='num-pos'>505,590</td>
+      <td class='num-pos'>561,161</td>
+    </tr>
+    <tr>
+      <th>2026-09-23</th>
+      <td class='num-neg'>-119,581</td>
+      <td class='num-neg'>-74,106</td>
+      <td class='num-pos'>3,805</td>
+      <td class='num-pos'>55,711</td>
+      <td class='num-pos'>91,583</td>
+      <td class='num-pos'>115,035</td>
+      <td class='num-pos'>120,932</td>
+    </tr>
+    <tr>
+      <th>2026-09-24</th>
+      <td class='num-neg'>-191,169</td>
+      <td class='num-neg'>-37,399</td>
+      <td class='num-pos'>63,671</td>
+      <td class='num-pos'>119,294</td>
+      <td class='num-pos'>160,128</td>
+      <td class='num-pos'>195,318</td>
+      <td class='num-pos'>213,640</td>
+    </tr>
+    <tr>
+      <th>2026-09-25</th>
+      <td class='num-neg'>-96,178</td>
+      <td class='num-neg'>-93,937</td>
+      <td class='num-neg'>-82,923</td>
+      <td class='num-neg'>-65,045</td>
+      <td class='num-neg'>-37,365</td>
+      <td class='num-pos'>13,700</td>
+      <td class='num-pos'>75,920</td>
+    </tr>
+    <tr>
+      <th>2026-09-26</th>
+      <td class='num-neg'>-1,119,611</td>
+      <td class='num-pos'>309,498</td>
+      <td class='num-pos'>1,168,708</td>
+      <td class='num-pos'>1,729,543</td>
+      <td class='num-pos'>2,259,604</td>
+      <td class='num-pos'>2,947,874</td>
+      <td class='num-pos'>3,721,530</td>
+    </tr>
+    <tr>
+      <th>2026-09-29</th>
+      <td class='num-neg'>-37,477</td>
+      <td class='num-pos'>3,514</td>
+      <td class='num-pos'>35,828</td>
+      <td class='num-pos'>56,788</td>
+      <td class='num-pos'>75,023</td>
+      <td class='num-pos'>95,035</td>
+      <td class='num-pos'>110,696</td>
+    </tr>
+    <tr>
+      <th>2026-09-30</th>
+      <td class='num-neg'>-83,901</td>
+      <td class='num-neg'>-31,048</td>
+      <td class='num-pos'>14,969</td>
+      <td class='num-pos'>42,494</td>
+      <td class='num-pos'>63,789</td>
+      <td class='num-pos'>83,279</td>
+      <td class='num-pos'>94,255</td>
+    </tr>
+    <tr>
+      <th>2026-10-01</th>
+      <td class='num-neg'>-50,332</td>
+      <td class='num-neg'>-24,749</td>
+      <td class='num-neg'>-5,803</td>
+      <td class='num-pos'>5,634</td>
+      <td class='num-pos'>15,059</td>
+      <td class='num-pos'>24,988</td>
+      <td class='num-pos'>32,916</td>
+    </tr>
+    <tr>
+      <th>2026-10-02</th>
+      <td class='num-neg'>-103,641</td>
+      <td class='num-neg'>-78,845</td>
+      <td class='num-neg'>-44,560</td>
+      <td class='num-neg'>-15,747</td>
+      <td class='num-pos'>13,949</td>
+      <td class='num-pos'>52,922</td>
+      <td class='num-pos'>91,229</td>
+    </tr>
+    <tr>
+      <th>2026-10-03</th>
+      <td class='num-neg'>-953,145</td>
+      <td class='num-pos'>1,680,014</td>
+      <td class='num-pos'>2,778,325</td>
+      <td class='num-pos'>3,317,299</td>
+      <td class='num-pos'>3,732,920</td>
+      <td class='num-pos'>4,179,944</td>
+      <td class='num-pos'>4,610,456</td>
+    </tr>
+    <tr>
+      <th>2026-10-09</th>
+      <td class='num-pos'>6</td>
+      <td class='num-pos'>31</td>
+      <td class='num-pos'>59</td>
+      <td class='num-pos'>81</td>
+      <td class='num-pos'>104</td>
+      <td class='num-pos'>136</td>
+      <td class='num-pos'>173</td>
+    </tr>
+    <tr>
+      <th>2026-10-10</th>
+      <td class='num-neg'>-298,892</td>
+      <td class='num-pos'>162,248</td>
+      <td class='num-pos'>415,439</td>
+      <td class='num-pos'>565,144</td>
+      <td class='num-pos'>696,545</td>
+      <td class='num-pos'>857,710</td>
+      <td class='num-pos'>1,038,678</td>
+    </tr>
+    <tr>
+      <th>2026-10-17</th>
+      <td class='num-neg'>-2,090,542</td>
+      <td class='num-pos'>3,170,811</td>
+      <td class='num-pos'>5,895,376</td>
+      <td class='num-pos'>7,404,620</td>
+      <td class='num-pos'>8,656,907</td>
+      <td class='num-pos'>10,098,382</td>
+      <td class='num-pos'>11,624,962</td>
+    </tr>
+    <tr>
+      <th>2026-10-24</th>
+      <td class='num-neg'>-336,356</td>
+      <td class='num-pos'>269,421</td>
+      <td class='num-pos'>612,238</td>
+      <td class='num-pos'>814,188</td>
+      <td class='num-pos'>990,515</td>
+      <td class='num-pos'>1,206,257</td>
+      <td class='num-pos'>1,452,397</td>
+    </tr>
+    <tr>
+      <th>2026-10-31</th>
+      <td class='num-neg'>-53,622</td>
+      <td class='num-pos'>12,865</td>
+      <td class='num-pos'>51,736</td>
+      <td class='num-pos'>76,003</td>
+      <td class='num-pos'>98,473</td>
+      <td class='num-pos'>128,272</td>
+      <td class='num-pos'>166,986</td>
+    </tr>
+    <tr>
+      <th>2026-11-04</th>
+      <td class='num-neg'>-1,018,258</td>
+      <td class='num-neg'>-69,498</td>
+      <td class='num-pos'>483,557</td>
+      <td class='num-pos'>814,362</td>
+      <td class='num-pos'>1,105,190</td>
+      <td class='num-pos'>1,460,574</td>
+      <td class='num-pos'>1,853,842</td>
+    </tr>
+    <tr>
+      <th>2026-11-21</th>
+      <td class='num-pos'>3,697,313</td>
+      <td class='num-pos'>5,459,841</td>
+      <td class='num-pos'>6,369,944</td>
+      <td class='num-pos'>6,911,419</td>
+      <td class='num-pos'>7,401,954</td>
+      <td class='num-pos'>8,048,014</td>
+      <td class='num-pos'>8,915,235</td>
+    </tr>
+    <tr>
+      <th>2026-12-19</th>
+      <td class='num-pos'>8,526,379</td>
+      <td class='num-pos'>9,953,087</td>
+      <td class='num-pos'>10,677,848</td>
+      <td class='num-pos'>11,112,368</td>
+      <td class='num-pos'>11,511,557</td>
+      <td class='num-pos'>12,050,693</td>
+      <td class='num-pos'>12,813,399</td>
+    </tr>
+    <tr>
+      <th>2026-12-29</th>
+      <td class='num-neg'>-9</td>
+      <td class='num-neg'>-2</td>
+      <td class='num-neg'>-1</td>
+      <td>-0</td>
+      <td>-0</td>
+      <td>-0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2027-01-15</th>
+      <td class='num-pos'>2,135,818</td>
+      <td class='num-pos'>2,766,190</td>
+      <td class='num-pos'>3,140,457</td>
+      <td class='num-pos'>3,381,564</td>
+      <td class='num-pos'>3,612,608</td>
+      <td class='num-pos'>3,935,518</td>
+      <td class='num-pos'>4,399,755</td>
+    </tr>
+    <tr>
+      <th>2027-01-16</th>
+      <td class='num-pos'>19,151,082</td>
+      <td class='num-pos'>21,634,353</td>
+      <td class='num-pos'>22,879,986</td>
+      <td class='num-pos'>23,623,974</td>
+      <td class='num-pos'>24,306,075</td>
+      <td class='num-pos'>25,225,148</td>
+      <td class='num-pos'>26,518,812</td>
+    </tr>
+    <tr>
+      <th>2027-01-20</th>
+      <td class='num-pos'>1,009,080</td>
+      <td class='num-pos'>1,228,383</td>
+      <td class='num-pos'>1,312,890</td>
+      <td class='num-pos'>1,354,877</td>
+      <td class='num-pos'>1,387,861</td>
+      <td class='num-pos'>1,424,267</td>
+      <td class='num-pos'>1,461,076</td>
+    </tr>
+    <tr>
+      <th>2027-02-20</th>
+      <td class='num-neg'>-275,047</td>
+      <td class='num-pos'>95,933</td>
+      <td class='num-pos'>298,769</td>
+      <td class='num-pos'>425,471</td>
+      <td class='num-pos'>545,376</td>
+      <td class='num-pos'>712,711</td>
+      <td class='num-pos'>959,618</td>
+    </tr>
+    <tr>
+      <th>2027-03-05</th>
+      <td class='num-pos'>135,611</td>
+      <td class='num-pos'>137,130</td>
+      <td class='num-pos'>137,607</td>
+      <td class='num-pos'>137,820</td>
+      <td class='num-pos'>137,976</td>
+      <td class='num-pos'>138,134</td>
+      <td class='num-pos'>138,276</td>
+    </tr>
+    <tr>
+      <th>2027-03-20</th>
+      <td class='num-pos'>730,326</td>
+      <td class='num-pos'>1,681,753</td>
+      <td class='num-pos'>2,178,067</td>
+      <td class='num-pos'>2,481,468</td>
+      <td class='num-pos'>2,764,766</td>
+      <td class='num-pos'>3,155,261</td>
+      <td class='num-pos'>3,725,175</td>
+    </tr>
+    <tr>
+      <th>2027-03-26</th>
+      <td class='num-neg'>-244</td>
+      <td class='num-neg'>-112</td>
+      <td class='num-neg'>-70</td>
+      <td class='num-neg'>-52</td>
+      <td class='num-neg'>-38</td>
+      <td class='num-neg'>-24</td>
+      <td class='num-neg'>-11</td>
+    </tr>
+    <tr>
+      <th>2027-03-30</th>
+      <td class='num-neg'>-69</td>
+      <td class='num-neg'>-29</td>
+      <td class='num-neg'>-17</td>
+      <td class='num-neg'>-12</td>
+      <td class='num-neg'>-9</td>
+      <td class='num-neg'>-5</td>
+      <td class='num-neg'>-2</td>
+    </tr>
+    <tr>
+      <th>2027-04-17</th>
+      <td class='num-neg'>-80,800</td>
+      <td class='num-pos'>7,235</td>
+      <td class='num-pos'>53,063</td>
+      <td class='num-pos'>80,809</td>
+      <td class='num-pos'>106,408</td>
+      <td class='num-pos'>141,004</td>
+      <td class='num-pos'>189,460</td>
+    </tr>
+    <tr>
+      <th>2027-06-18</th>
+      <td class='num-pos'>2,633,673</td>
+      <td class='num-pos'>3,693,289</td>
+      <td class='num-pos'>4,246,106</td>
+      <td class='num-pos'>4,584,371</td>
+      <td class='num-pos'>4,900,548</td>
+      <td class='num-pos'>5,337,002</td>
+      <td class='num-pos'>5,975,678</td>
+    </tr>
+    <tr>
+      <th>2027-06-30</th>
+      <td class='num-neg'>-6,759</td>
+      <td class='num-neg'>-5,336</td>
+      <td class='num-neg'>-4,604</td>
+      <td class='num-neg'>-4,166</td>
+      <td class='num-neg'>-3,764</td>
+      <td class='num-neg'>-3,227</td>
+      <td class='num-neg'>-2,487</td>
+    </tr>
+    <tr>
+      <th>2027-09-18</th>
+      <td class='num-pos'>524,062</td>
+      <td class='num-pos'>969,177</td>
+      <td class='num-pos'>1,204,961</td>
+      <td class='num-pos'>1,350,835</td>
+      <td class='num-pos'>1,488,476</td>
+      <td class='num-pos'>1,680,840</td>
+      <td class='num-pos'>1,968,205</td>
+    </tr>
+    <tr>
+      <th>2027-12-18</th>
+      <td class='num-pos'>5,172,623</td>
+      <td class='num-pos'>5,689,999</td>
+      <td class='num-pos'>5,957,320</td>
+      <td class='num-pos'>6,120,338</td>
+      <td class='num-pos'>6,272,466</td>
+      <td class='num-pos'>6,482,280</td>
+      <td class='num-pos'>6,789,467</td>
+    </tr>
+    <tr>
+      <th>2028-01-22</th>
+      <td class='num-pos'>4,239,528</td>
+      <td class='num-pos'>5,043,617</td>
+      <td class='num-pos'>5,460,982</td>
+      <td class='num-pos'>5,715,828</td>
+      <td class='num-pos'>5,953,747</td>
+      <td class='num-pos'>6,281,846</td>
+      <td class='num-pos'>6,761,670</td>
+    </tr>
+    <tr>
+      <th>2028-02-29</th>
+      <td class='num-pos'>3,900</td>
+      <td class='num-pos'>4,886</td>
+      <td class='num-pos'>5,481</td>
+      <td class='num-pos'>5,875</td>
+      <td class='num-pos'>6,266</td>
+      <td class='num-pos'>6,842</td>
+      <td class='num-pos'>7,772</td>
+    </tr>
+    <tr>
+      <th>2028-06-17</th>
+      <td class='num-pos'>457,978</td>
+      <td class='num-pos'>710,694</td>
+      <td class='num-pos'>847,791</td>
+      <td class='num-pos'>933,669</td>
+      <td class='num-pos'>1,015,408</td>
+      <td class='num-pos'>1,130,734</td>
+      <td class='num-pos'>1,305,206</td>
+    </tr>
+    <tr>
+      <th>2028-12-16</th>
+      <td class='num-pos'>4,845,781</td>
+      <td class='num-pos'>5,351,202</td>
+      <td class='num-pos'>5,621,347</td>
+      <td class='num-pos'>5,789,193</td>
+      <td class='num-pos'>5,947,997</td>
+      <td class='num-pos'>6,170,534</td>
+      <td class='num-pos'>6,503,974</td>
+    </tr>
+    <tr>
+      <th>2029-01-20</th>
+      <td class='num-pos'>30,646</td>
+      <td class='num-pos'>35,125</td>
+      <td class='num-pos'>37,528</td>
+      <td class='num-pos'>39,022</td>
+      <td class='num-pos'>40,435</td>
+      <td class='num-pos'>42,416</td>
+      <td class='num-pos'>45,379</td>
+    </tr>
+    <tr>
+      <th>2029-12-22</th>
+      <td class='num-pos'>9,323</td>
+      <td class='num-pos'>9,724</td>
+      <td class='num-pos'>9,918</td>
+      <td class='num-pos'>10,032</td>
+      <td class='num-pos'>10,135</td>
+      <td class='num-pos'>10,273</td>
+      <td class='num-pos'>10,463</td>
+    </tr>
+    <tr>
+      <th>2030-01-19</th>
+      <td class='num-pos'>10,035</td>
+      <td class='num-pos'>10,356</td>
+      <td class='num-pos'>10,516</td>
+      <td class='num-pos'>10,613</td>
+      <td class='num-pos'>10,701</td>
+      <td class='num-pos'>10,821</td>
+      <td class='num-pos'>10,992</td>
+    </tr>
+    <tr>
+      <th>2031-01-18</th>
+      <td class='num-pos'>9,254</td>
+      <td class='num-pos'>9,509</td>
+      <td class='num-pos'>9,638</td>
+      <td class='num-pos'>9,715</td>
+      <td class='num-pos'>9,787</td>
+      <td class='num-pos'>9,886</td>
+      <td class='num-pos'>10,027</td>
+    </tr>
+  </tbody>
+</table></div></div>
+    </div>
+    <p class="note">Method: <a href="https://github.com/galigutta/open_interest">galigutta/open_interest</a></p>
+  </div>
+</body>
+</html>
